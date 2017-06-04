@@ -11,8 +11,10 @@ controller_role:
 
     services:
         - OS::TripleO::Services::CACerts
+        - "{% if install.version|default(undercloud_version) |openstack_release > 10 %}OS::TripleO::Services::CephMds{% endif %}"
         - OS::TripleO::Services::CephMon
         - OS::TripleO::Services::CephExternal
+        - "{% if install.version|default(undercloud_version) |openstack_release > 10 %}OS::TripleO::Services::CephRbdMirror{% endif %}"
         - OS::TripleO::Services::CephRgw
         - OS::TripleO::Services::CinderApi
         - OS::TripleO::Services::CinderBackup
@@ -27,10 +29,8 @@ controller_role:
         - OS::TripleO::Services::HeatApiCfn
         - OS::TripleO::Services::HeatApiCloudwatch
         - OS::TripleO::Services::HeatEngine
-        - OS::TripleO::Services::MySQL
         - OS::TripleO::Services::NeutronApi
         - OS::TripleO::Services::NeutronCorePlugin
-        - OS::TripleO::Services::RabbitMQ
         - OS::TripleO::Services::HAproxy
         - OS::TripleO::Services::Keepalived
         - OS::TripleO::Services::Memcached
@@ -78,8 +78,9 @@ controller_role:
         - OS::TripleO::Services::TripleoPackages
         - OS::TripleO::Services::TripleoFirewall
         - OS::TripleO::Services::OpenDaylightApi
+        - OS::TripleO::Services::OpenDaylightOvs
         - OS::TripleO::Services::SensuClient
         - OS::TripleO::Services::FluentdClient
         - "{% if install.version|default(undercloud_version) |openstack_release < 11 %}OS::TripleO::Services::VipHosts{% endif %}"
         - "{% if install.version|default(undercloud_version) |openstack_release > 10 %}OS::TripleO::Services::MySQLClient{% endif %}"
-        - "{% if roles_sshd %}OS::TripleO::Services::Sshd{% endif %}"
+        - "{% if install.version|default(undercloud_version) |openstack_release > 10 %}OS::TripleO::Services::Sshd{% endif %}"
