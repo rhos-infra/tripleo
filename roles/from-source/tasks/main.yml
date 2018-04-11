@@ -1,2 +1,0 @@
-- name: Include package build method
-  include_tasks: dlrn.yml
