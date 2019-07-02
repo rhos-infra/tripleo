@@ -1,0 +1,4 @@
+---
+- name: Placeholder for workarounds(container related)
+  hosts: localhost
+  gather_facts: no
